@@ -15,3 +15,20 @@ var levelOrder = function(root) {
 
   return result
 };
+
+var levelOrder = function(root) {
+  if(!root) return []
+  let queue = [root]
+  let result = []
+  while(queue.length) {
+    let levelTotal = queue.length
+    result.push([])
+    while(levelTotal--) {
+      const node = queue.shift()
+      result[result.length - 1].push(node.val)
+      if(node.left) queue.push(node.left)
+      if(node.right) queue.push(node.right)
+    }
+  }
+  return result
+}
