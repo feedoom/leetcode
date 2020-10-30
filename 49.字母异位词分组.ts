@@ -36,7 +36,6 @@
 
 // @lc code=start
 function groupAnagrams(strs: string[]): string[][] {
-    const res: string[][] = []
     const map = new Map()
     function sort(str: string): string {
         return str.split('').sort().join('')
