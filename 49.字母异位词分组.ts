@@ -36,42 +36,21 @@
 
 // @lc code=start
 function groupAnagrams(strs: string[]): string[][] {
-    let res: string[][] = []
-    function isEqual (s1: string, s2: string) :boolean {
-        if(s1.length !== s2.length) return false
-        if(s1 === s2) return true
-        const map = new Map()
-        for (let i = 0; i < s1.length; i++) {
-            if(map.has(s1[i])) {
-                map.set(s1[i], map.get(s1[i]) + 1)
-            } else {
-                map.set(s1[i], 1)
-            }
-        }
-        if (s2.length <= 0) return false
-        for(let i = 0; i < s2.length; i++) {
-            if (!map.has(s2[i])) {
-                return false
-            } else {
-                map.set(s2[i], map.get(s2[i]) - 1)
-            }
-        }
-        return [...map.values()].every(item => item === 0)
+    const res: string[][] = []
+    const map = new Map()
+    function sort(str: string): string {
+        return str.split('').sort().join('')
     }
-    while(strs.length > 0) {
-        let arr: string[] = []
-        let str = strs.pop()
-        arr.push(str as string)
-        for(let i = 0; i < strs.length; i++) {
-            if(isEqual(str as string, strs[i] as string)) {
-                arr.push(strs[i] as string)
-                strs.splice(i, 1)
-                i = i -1
-            }
+    strs.forEach(item => {
+        let key = sort(item)
+        let val =item
+        if(map.has(key)) {
+            map.set(key, (map.get(key) as string[]).concat([item]))
+        } else {
+            map.set(key, [val])
         }
-        res.push(arr)
-    }
-    return res
-};
+    })
+    return [...map.values()]
+};;
 // @lc code=end
 
