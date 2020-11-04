@@ -43,8 +43,8 @@
 
 // @lc code=start
 interface heapItem {
-    key:number
-    value: number
+    val: number
+    count: number
 }
 class MinHeap {
     heap: heapItem[]
@@ -52,7 +52,7 @@ class MinHeap {
         this.heap = []
     }
     getParentIndex(index: number): number {
-        return (index -1) >> 1
+        return (index - 1) >> 1
     }
     getLeftIndex(index: number): number {
         return index * 2 + 1
@@ -63,35 +63,34 @@ class MinHeap {
     swap(index1: number, index2: number): void {
         let tmp = this.heap[index1]
         this.heap[index1] = this.heap[index2]
-        this.heap[index2] =tmp
+        this.heap[index2] = tmp
     }
     shiftUp(index: number): void {
         if (index === 0) return;
-        let parentIndex = this.getParentIndex(index)
-        if ((this.heap[parentIndex]!).value > (this.heap[index]!).value) {
-            this.swap(index,parentIndex)
+        let parentIndex: number = this.getParentIndex(index)
+        if ((this.heap[parentIndex]!).count > (this.heap[index]!).count) {
+            this.swap(index, parentIndex)
             this.shiftUp(parentIndex)
         }
     }
     shiftDown(index: number): void {
-        let leftIndex = this.getLeftIndex(index)
-        let rightIndex = this.getRightIndex(index)
-        if ((this.heap[leftIndex]!).value < (this.heap[index]!).value) {
-            this.swap(leftIndex,index)
+        let leftIndex: number = this.getLeftIndex(index)
+        let rightIndex: number = this.getRightIndex(index)
+        if (this.heap[leftIndex] && this.heap[leftIndex].count < this.heap[index].count) {
+            this.swap(leftIndex, index)
             this.shiftDown(leftIndex)
         }
-        if ((this.heap[rightIndex]!).value < (this.heap[index]!).value) {
-            this.swap(rightIndex,index)
+        if (this.heap[rightIndex] && this.heap[rightIndex].count < this.heap[index].count) {
+            this.swap(rightIndex, index)
             this.shiftDown(rightIndex)
         }
-
     }
     insert(value: heapItem): void {
         this.heap.push(value)
         this.shiftUp(this.heap.length - 1)
     }
     pop(): heapItem {
-        let res = this.heap[0]
+        let res: heapItem = this.heap[0] as heapItem
         this.heap[0] = this.heap.pop() as heapItem
         this.shiftDown(0)
         return res
@@ -99,8 +98,8 @@ class MinHeap {
     size(): number {
         return this.heap.length
     }
-    allItem() {
-        return this.heap.map(item => item.key)
+    allItem(): number[] {
+        return this.heap.map(item => item.val) as number[]
     }
 }
 
@@ -110,16 +109,15 @@ function topKFrequent(nums: number[], k: number): number[] {
     nums.forEach(item => {
         map.set(item, map.has(item) ? map.get(item) + 1 : 1)
     })
-    map.forEach((value, key) => {
+    map.forEach((count, val) => {
         let item: heapItem = {
-            key,
-            value
+            val,
+            count
         }
         heap.insert(item)
-       if(heap.size() > k) heap.pop()
+        if (heap.size() > k) heap.pop()
     })
-   return heap.allItem()
-
+    return heap.allItem()
 };
 // @lc code=end
 
