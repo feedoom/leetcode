@@ -58,7 +58,7 @@
  */
 
 function rangeSumBST(root: TreeNode | null, L: number, R: number): number {
-    let res: number = 0
+    let res: number = 0;
     const dfs = (root: TreeNode | null): void => {
         if(!root) return
         if(root.val >= L && root.val <= R) res += root.val
