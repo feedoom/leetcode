@@ -83,15 +83,27 @@
  */
 
 function preorderTraversal(root: TreeNode | null): number[] {
-    if(!root) return [];
+    // 递归
+    // if (!root) return [];
+    // const res: Array<number> = [];
+    // function dfs(root: TreeNode | null) {
+    //     res.push(root!.val);
+    //     if (root!.left) dfs(root!.left);
+    //     if (root!.right) dfs(root!.right);
+    // }
+    // dfs(root);
+    // return res;
+
+
+    // 迭代
+    if (!root) return [];
     const res: Array<number> = [];
     function dfs(root: TreeNode | null) {
         res.push(root!.val);
         if (root!.left) dfs(root!.left);
-        if(root!.right)  dfs(root!.right);
+        if (root!.right) dfs(root!.right);
     }
     dfs(root);
     return res;
 };
 // @lc code=end
-
