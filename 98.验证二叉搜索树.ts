@@ -62,7 +62,7 @@
  * }
  */
 
-function isValidBST(root: TreeNode | null): boolean {
+function isValidBST(root: TreeNode | null, max:number = Infinity, min:number = -Infinity): boolean {
     if(!root) return true;
     if(root.val >= max || root.val <= min) return false
     return isValidBST(root.left, root.val, min) && isValidBST(root.right, max, root.val)
