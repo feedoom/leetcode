@@ -60,10 +60,8 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
         let res = []
         let flag = false
         while (queue.length) {
-            let tmp = []
-            while(queue.length > 0) {
-                tmp.push(queue.shift())
-            }
+            let tmp = queue
+            queue = []
             res.push([])
             while(tmp.length > 0) {
                 const node = tmp.shift()
